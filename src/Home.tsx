@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import supabase from "./supabaseClient";
 
 export default function App() {
@@ -24,8 +25,10 @@ export default function App() {
             {adventures.map((a: any) => (
             <div key={a.id} className="flex justify-center">
                 <div className="flex justify-between mb-12 mx-4 py-4 px-6 w-full h-36 rounded-lg bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                  <h1>{a.title}</h1>
-                  <p>{a.is_completed.toString()}</p>
+                    <Link to="adventure">
+                      <h1>{a.title}</h1>
+                      <p>{a.is_completed.toString()}</p>
+                    </Link>
                 </div>
             </div>
             ))}
