@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import supabase from "./supabaseClient";
 
 export default function App() {
-  const TASK_HEIGHT = 20;
+  // const TASK_HEIGHT = 20;
   const [adventures, setAdventures] = useState<any[]>([]);
 
   const getAdventures = async () => {
