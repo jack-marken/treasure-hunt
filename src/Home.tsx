@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import supabase from "../supabaseClient";
+import supabase from "./supabaseClient";
 
 export default function App() {
   const [adventures, setAdventures] = useState<any[]>([]);
@@ -9,7 +9,6 @@ export default function App() {
     if (data != null) {
         setAdventures(data);
     }
-    console.log(data)
   }
 
   useEffect(() => {
