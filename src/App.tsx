@@ -16,6 +16,7 @@ interface Task {
 }
 
 export default function App() {
+  const [lockedArr, setLockedArr] = useState([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const getTasks = async () => {
@@ -23,16 +24,44 @@ export default function App() {
     if (data != null) {
         setTasks(data);
     }
+    const sortedObj = {}
+    for (const record of Object.values(data)) {
+      sortedObj[record.sequence] = record.is_locked;
+    }
+    setLockedArr(sortedObj);
   }
 
-  const retrieveLocked = (sequence: number) => {
-    // const lockedArr = tasks.map((task) => return {task.sequence:task.is_locked});
-    const match = tasks.find(x => x.sequence == sequence);
+  // const retrieveLocked = async () => {
+  //   const { data, error } = await supabase
+  //   .from('tasks')
+  //   .select('*')
 
-    if (match) {
-      return match.is_locked;
-    }
-    return false;
+  //   const sortedObj = {}
+  //   for (const record of Object.values(data)) {
+  //     sortedObj[record.sequence] = record.is_locked;
+  //   }
+  //   setLockedArr(sortedObj);
+  // }
+
+  const toggleLocked = async (seq) => {
+    var newLockedArr = lockedArr;
+    newLockedArr[seq] = !lockedArr[seq];
+    setLockedArr(newLockedArr);
+    const { error } = await supabase
+    .from('tasks')
+    .update({ is_locked: lockedArr[seq] })
+    .eq('sequence', seq)
+    getTasks();
+  }
+
+  // const retrieveLocked = (sequence: number) => {
+  //   // const lockedArr = tasks.map((task) => return {task.sequence:task.is_locked});
+  //   const match = tasks.find(x => x.sequence == sequence);
+
+  //   if (match) {
+  //     return match.is_locked;
+  //   }
+  //   return false;
 
 
     // console.log(JSON.stringify(lockedTasks));
@@ -42,7 +71,7 @@ export default function App() {
     // .eq('sequence', 1)
     // console.log(JSON.stringify(data[0]['is_locked']));
     // return JSON.stringify(data[0]['is_locked']);
-  }
+  // }
 
   // const toggleLocked = async (id) => {
   //   const { error } = await supabase
@@ -59,7 +88,6 @@ export default function App() {
     <HashRouter>
       <Routes>
         <Route path="/tasks" element={<TaskList />} />
-
         <Route path="/" element={<Navigate to="1" replace={true} />} />
         <Route path="/1" element={
           <Task
@@ -67,7 +95,8 @@ export default function App() {
           mainText="HEYY"
           hintText="Here is a hint"
           tasksLength={tasks.length}
-          locked={retrieveLocked(1)}
+          lockedArr={lockedArr}
+          toggleLocked={() => toggleLocked(1)}
           />}
         />
         <Route path="/2" element={
@@ -78,7 +107,8 @@ export default function App() {
           link="https://youtu.be/e3NxzdEeAlA"
           hintText="Here is a hint"
           tasksLength={tasks.length}
-          locked={retrieveLocked(2)}
+          lockedArr={lockedArr}
+          toggleLocked={() => toggleLocked(2)}
           />}
         />
         <Route path="/3" element={
@@ -88,7 +118,8 @@ export default function App() {
           link=""
           hintText="Here is a hint"
           tasksLength={tasks.length}
-          locked={retrieveLocked(3)}
+          lockedArr={lockedArr}
+          toggleLocked={() => toggleLocked(3)}
           />}
         />
         <Route path="/4" element={
@@ -98,7 +129,8 @@ export default function App() {
           link=""
           hintText="Here is a hint"
           tasksLength={tasks.length}
-          locked={retrieveLocked(4)}
+          lockedArr={lockedArr}
+          toggleLocked={() => toggleLocked(4)}
           />}
         />
         <Route path="/5" element={
@@ -108,7 +140,8 @@ export default function App() {
           link=""
           hintText="Here is a hint"
           tasksLength={tasks.length}
-          locked={retrieveLocked(5)}
+          lockedArr={lockedArr}
+          toggleLocked={() => toggleLocked(5)}
           />}
         />
       </Routes>

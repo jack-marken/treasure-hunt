@@ -12,23 +12,41 @@ type TaskProps = {
   link: string;
   hintText: string;
   tasksLength: number;
-  locked: boolean;
+  toggleLocked: void;
 }
 
-export default function Task( {sequence, mainText, bodyText, link, hintText, tasksLength, locked}: TaskProps ) {
+export default function Task( {sequence, mainText, bodyText, link, hintText, tasksLength, lockedArr, toggleLocked}: TaskProps ) {
   const [isLocked, setIsLocked] = useState<boolean>(false);
 
-  const toggleIsLocked = async () => {
-    const { error } = await supabase
-    .from('tasks')
-    .update({ is_locked: !isLocked })
-    .eq('sequence', sequence)
-    setIsLocked(!isLocked);
-  }
+  // const retrieveLocked = async () => {
+  //   const { data, error } = await supabase
+  //   .from('tasks')
+  //   .select('*')
+
+  //   const sortedObj = {}
+  //   for (const record of Object.values(data)) {
+  //     sortedObj[record.sequence] = record.is_locked;
+  //   }
+  //   setLockedArr(sortedObj);
+  //   setIsLocked(sortedObj[sequence]);
+  // }
+
+  // const toggleIsLocked = async () => {
+  //   const { error } = await supabase
+  //   .from('tasks')
+  //   .update({ is_locked: !isLocked })
+  //   .eq('sequence', sequence)
+  //   setIsLocked(!isLocked);
+  //   setIsLocked(lockedArr[sequence])
+  // }
 
   useEffect(() => {
-    setIsLocked(locked);
-  }, []);
+    if (lockedArr[sequence]) {
+      setIsLocked(true);
+    } else {
+      setIsLocked(false);
+    }
+  });
 
   return (
     <div className={`h-dvh ${isLocked ? 'bg-gray-400' : 'bg-emerald-800'}`}>
@@ -51,25 +69,27 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, tas
 
       <div className="fixed flex right-8 bottom-8 left-8">
         <div className="flex w-full justify-center">
-        <Link to={`/${sequence > 1 ? parseInt(sequence) - 1 : parseInt(sequence)}`}>
-        <button className="w-12 flex-grow relative -left-1 flex items-center justify-center h-16 rounded-l-md bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
+        <Link
+        to={`/${sequence > 1 ? parseInt(sequence) - 1 : parseInt(sequence)}`}
+        className="w-12 flex-grow relative -left-1 flex items-center justify-center h-16 rounded-l-md bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1"
+        >
           <FaCaretLeft />
-        </button>
         </Link>
       {!isLocked &&
-        <button onClick={toggleIsLocked} className="basis-3/4 relative -left-1 flex items-center justify-center h-16 bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
+        <button onClick={toggleLocked} className="basis-3/4 relative -left-1 flex items-center justify-center h-16 bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
           <FaLock/>
         </button>
       }
       {isLocked &&
-        <button onClick={toggleIsLocked} className="basis-3/4 relative -left-1 flex items-center justify-center h-16 bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
+        <button onClick={toggleLocked} className="basis-3/4 relative -left-1 flex items-center justify-center h-16 bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
           PASSWORD
         </button>
       }
-        <Link to={`/${sequence < tasksLength ? parseInt(sequence) + 1 : parseInt(sequence)}`}>
-        <button className="w-12 flex-auto relative -left-1 flex items-center justify-center h-16 rounded-r-md bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
+        <Link
+        to={`/${sequence < tasksLength ? parseInt(sequence) + 1 : parseInt(sequence)}`}
+        className="w-12 flex-auto relative -left-1 flex items-center justify-center h-16 rounded-r-md bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1"
+        >
           <FaCaretRight />
-        </button>
         </Link>
         </div>
       </div>
