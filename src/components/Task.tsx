@@ -16,29 +16,7 @@ type TaskProps = {
 }
 
 export default function Task( {sequence, mainText, bodyText, link, hintText, tasksLength, lockedArr, toggleLocked}: TaskProps ) {
-  const [isLocked, setIsLocked] = useState<boolean>(false);
-
-  // const retrieveLocked = async () => {
-  //   const { data, error } = await supabase
-  //   .from('tasks')
-  //   .select('*')
-
-  //   const sortedObj = {}
-  //   for (const record of Object.values(data)) {
-  //     sortedObj[record.sequence] = record.is_locked;
-  //   }
-  //   setLockedArr(sortedObj);
-  //   setIsLocked(sortedObj[sequence]);
-  // }
-
-  // const toggleIsLocked = async () => {
-  //   const { error } = await supabase
-  //   .from('tasks')
-  //   .update({ is_locked: !isLocked })
-  //   .eq('sequence', sequence)
-  //   setIsLocked(!isLocked);
-  //   setIsLocked(lockedArr[sequence])
-  // }
+  const [isLocked, setIsLocked] = useState<boolean>(true);
 
   useEffect(() => {
     if (lockedArr[sequence]) {
@@ -96,9 +74,3 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, tas
     </div>
   );
 }
-
-
-        // <div className="flex w-100">
-        //   <button className={`relative ${isLocked ? 'w-12' : 'flex-grow'} bg-gray-200 items-center justify-center shadow-solid rounded-l-md active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1`}>HEY</button>
-        //   <button className={`relative ${isLocked ? 'w-12' : 'flex-grow'} bg-gray-200 items-center justify-center shadow-solid rounded-r-md active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1`}>HEY</button>
-        // </div>

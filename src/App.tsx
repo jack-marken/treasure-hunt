@@ -31,18 +31,6 @@ export default function App() {
     setLockedArr(sortedObj);
   }
 
-  // const retrieveLocked = async () => {
-  //   const { data, error } = await supabase
-  //   .from('tasks')
-  //   .select('*')
-
-  //   const sortedObj = {}
-  //   for (const record of Object.values(data)) {
-  //     sortedObj[record.sequence] = record.is_locked;
-  //   }
-  //   setLockedArr(sortedObj);
-  // }
-
   const toggleLocked = async (seq) => {
     var newLockedArr = lockedArr;
     newLockedArr[seq] = !lockedArr[seq];
@@ -54,32 +42,6 @@ export default function App() {
     getTasks();
   }
 
-  // const retrieveLocked = (sequence: number) => {
-  //   // const lockedArr = tasks.map((task) => return {task.sequence:task.is_locked});
-  //   const match = tasks.find(x => x.sequence == sequence);
-
-  //   if (match) {
-  //     return match.is_locked;
-  //   }
-  //   return false;
-
-
-    // console.log(JSON.stringify(lockedTasks));
-    // const { data } = await supabase
-    // .from('tasks')
-    // .select('is_locked')
-    // .eq('sequence', 1)
-    // console.log(JSON.stringify(data[0]['is_locked']));
-    // return JSON.stringify(data[0]['is_locked']);
-  // }
-
-  // const toggleLocked = async (id) => {
-  //   const { error } = await supabase
-  //   .from('tasks')
-  //   .update({ is_locked: !JSON.stringify(tasks["is_locked"]) })
-  //   .eq('id', id)
-  // }
-
   useEffect(() => {
       getTasks();
   }, [tasks]);
@@ -87,7 +49,7 @@ export default function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/tasks" element={<TaskList />} />
+        <Route path="/tasks" element={<TaskList lockedArr={lockedArr} />} />
         <Route path="/" element={<Navigate to="1" replace={true} />} />
         <Route path="/1" element={
           <Task
@@ -148,17 +110,3 @@ export default function App() {
     </HashRouter>
   );
 }
-
-        // <Route path="2" element={<OrigamiTask />} />
-        // <Route path="3" element={<LocationTask />} />
-        // <Route path="4" element={<PhilipTask />} />
-        // <Route path="5" element={<JigsawTask />} />
-
-
-
-
-
-// <div className="flex justify-between mb-12 mx-4 py-4 px-6 w-full h-36 rounded-lg bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out">
-//   <Link to="adventure">
-//   </Link>
-// </div>
