@@ -1,12 +1,18 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+// import { Link } from 'react-router-dom';
 import supabase from "../supabase-client";
-import { BsMap } from "react-icons/bs";
 import { RiTreasureMapFill } from "react-icons/ri";
 import { MdOutlineQuestionMark } from "react-icons/md";
 import { FaLock } from "react-icons/fa6";
 
-export default function WelcomeTask( {sequence, tasksLength, locked, bg} ) {
+
+type TaskProps = {
+  sequence: string;
+  tasksLength: number;
+  locked: boolean;
+}
+
+export default function WelcomeTask( {sequence, tasksLength, locked}: TaskProps ) {
   const [isLocked, setIsLocked] = useState<boolean>(locked);
 
   const toggleIsLocked = async () => {
@@ -35,6 +41,7 @@ export default function WelcomeTask( {sequence, tasksLength, locked, bg} ) {
     .update({ is_locked: !isLocked })
     .eq('sequence', sequence)
     setIsLocked(!isLocked);
+    console.log(error);
     // window.location.reload(); 
   }
 

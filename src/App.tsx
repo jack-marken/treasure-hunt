@@ -1,10 +1,6 @@
 import { Routes, Route, HashRouter, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import supabase from "./supabase-client";
-import { BsMap } from "react-icons/bs";
-import { RiTreasureMapFill } from "react-icons/ri";
-import { MdOutlineQuestionMark } from "react-icons/md";
 
 import WelcomeTask from "./components/WelcomeTask";
 import OrigamiTask from "./components/OrigamiTask";
@@ -20,7 +16,6 @@ interface Task {
 
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [currentTask, setCurrentTask] = useState(1);
 
   const getTasks = async () => {
     const { data } = await supabase.from('tasks').select();
@@ -29,14 +24,15 @@ export default function App() {
     }
   }
 
-  const retrieveLocked = (sequence) => {
+  const retrieveLocked = (sequence: number) => {
     // const lockedArr = tasks.map((task) => return {task.sequence:task.is_locked});
-    var match = tasks.find(x => x.sequence == sequence);
+    const match = tasks.find(x => x.sequence == sequence);
 
     if (match) {
       console.log(match.is_locked);
       return match.is_locked;
     }
+    return false;
 
 
     // console.log(JSON.stringify(lockedTasks));
