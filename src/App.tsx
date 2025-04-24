@@ -4,10 +4,6 @@ import supabase from "./supabase-client";
 
 import Task from "./components/Task";
 import TaskList from "./components/TaskList";
-import OrigamiTask from "./components/OrigamiTask";
-import LocationTask from "./components/LocationTask";
-import PhilipTask from "./components/PhilipTask";
-import JigsawTask from "./components/JigsawTask";
 
 interface Task {
   sequence: number;
@@ -15,7 +11,7 @@ interface Task {
 }
 
 export default function App() {
-  const [lockedArr, setLockedArr] = useState([]);
+  const [lockedArr, setLockedArr] = useState<boolean[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const getTasks = async () => {
@@ -23,15 +19,15 @@ export default function App() {
     if (data != null) {
         setTasks(data);
     }
-    const sortedObj = {}
-    for (const record of Object.values(data)) {
+    const sortedObj: boolean[] = []
+    for (const record of Object.values(tasks)) {
       sortedObj[record.sequence] = record.is_locked;
     }
     setLockedArr(sortedObj);
   }
 
-  const toggleLocked = async (seq) => {
-    var newLockedArr = lockedArr;
+  const toggleLocked = async (seq: number) => {
+    var newLockedArr: boolean[] = lockedArr;
     newLockedArr[seq] = !lockedArr[seq];
     setLockedArr(newLockedArr);
     const { error } = await supabase
@@ -39,6 +35,7 @@ export default function App() {
     .update({ is_locked: lockedArr[seq] })
     .eq('sequence', seq)
     getTasks();
+    console.log(error);
   }
 
   useEffect(() => {
@@ -54,8 +51,10 @@ export default function App() {
           <Task
           sequence="1"
           mainText="HEYY"
+          bodyText=""
+          link=""
           hintText="Here is a hint"
-          answer=""
+          password=""
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           toggleLocked={() => toggleLocked(1)}
@@ -66,7 +65,7 @@ export default function App() {
           sequence="2"
           mainText="Origami Anagram"
           bodyText="Follow these instructions, and letters will reveal themselves. All letters will make up a single word for the next password."
-          answer=""
+          password=""
           link="https://youtu.be/e3NxzdEeAlA"
           hintText="Here is a hint"
           tasksLength={tasks.length}
@@ -78,9 +77,10 @@ export default function App() {
           <Task
           sequence="3"
           mainText="Here is the third task"
+          bodyText=""
           link=""
           hintText="Here is a hint"
-          answer=""
+          password="underneath"
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           toggleLocked={() => toggleLocked(3)}
@@ -90,9 +90,10 @@ export default function App() {
           <Task
           sequence="4"
           mainText="Here is the fourth task"
+          bodyText=""
           link=""
           hintText="Here is a hint"
-          answer=""
+          password=""
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           toggleLocked={() => toggleLocked(4)}
@@ -102,9 +103,10 @@ export default function App() {
           <Task
           sequence="5"
           mainText="Here is the fifth task"
+          bodyText=""
           link=""
           hintText="Here is a hint"
-          answer=""
+          password=""
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           toggleLocked={() => toggleLocked(5)}

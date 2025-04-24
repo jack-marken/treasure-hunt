@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
-import supabase from "../supabase-client";
 import { Link } from 'react-router-dom';
 import { FaLock } from "react-icons/fa6";
 
-export default function TaskList({lockedArr}) {
+
+interface taskListProps {
+  lockedArr: boolean[];
+}
+
+export default function TaskList({lockedArr} : taskListProps) {
   const tasks = [];
 
   for (let i = 1; i <= 5; i++) {

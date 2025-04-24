@@ -1,29 +1,29 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import supabase from "../supabase-client";
 import { RiTreasureMapFill } from "react-icons/ri";
 import { MdOutlineQuestionMark } from "react-icons/md";
-import { FaLock, FaLockOpen, FaCaretLeft, FaCaretRight } from "react-icons/fa6";
+import { FaLock, FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 
 type TaskProps = {
   sequence: string;
   mainText: string;
   bodyText: string;
-  answer: string;
   link: string;
   hintText: string;
+  password: string;
   tasksLength: number;
-  toggleLocked: void;
+  lockedArr: boolean[];
+  toggleLocked: () => void;
 }
 
-export default function Task( {sequence, mainText, bodyText, link, hintText, answer, tasksLength, lockedArr, toggleLocked}: TaskProps ) {
+export default function Task( {sequence, mainText, bodyText, link, hintText, password, tasksLength, lockedArr, toggleLocked}: TaskProps ) {
   const [isLocked, setIsLocked] = useState<boolean>(true);
   const [pwd, setPwd] = useState<string>('');
   const [pwdPromptShowing, setPwdPromptShowing] = useState<boolean>(false);
   const [hintShowing, setHintShowing] = useState<boolean>(false);
 
   useEffect(() => {
-    if (lockedArr[sequence]) {
+    if (lockedArr[parseInt(sequence)]) {
       setIsLocked(true);
     } else {
       setIsLocked(false);
@@ -33,7 +33,7 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, ans
   const validatePwd = () => {
     setPwdPromptShowing(false);
     console.log(pwd);
-    if (pwd.toLowerCase() == answer.toLowerCase()) {
+    if (pwd.toLowerCase() == password.toLowerCase()) {
       toggleLocked();
     }
     setPwd('');
@@ -61,13 +61,13 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, ans
       <div className="fixed flex right-8 bottom-8 left-8">
         <div className="flex w-full justify-center">
         <Link
-        to={`/${sequence > 1 ? parseInt(sequence) - 1 : parseInt(sequence)}`}
+        to={`/${parseInt(sequence) > 1 ? parseInt(sequence) - 1 : parseInt(sequence)}`}
         className="w-12 flex-grow relative -left-1 flex items-center justify-center h-16 rounded-l-md bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1"
         >
           <FaCaretLeft />
         </Link>
       {!isLocked &&
-        <button onClick={toggleLocked} className="basis-3/4 relative -left-1 flex items-center justify-center h-16 bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
+        <button onClick={() => toggleLocked()} className="basis-3/4 relative -left-1 flex items-center justify-center h-16 bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
           <FaLock/>
         </button>
       }
@@ -77,7 +77,7 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, ans
         </button>
       }
         <Link
-        to={`/${sequence < tasksLength ? parseInt(sequence) + 1 : parseInt(sequence)}`}
+        to={`/${parseInt(sequence) < tasksLength ? parseInt(sequence) + 1 : parseInt(sequence)}`}
         className="w-12 flex-auto relative -left-1 flex items-center justify-center h-16 rounded-r-md bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1"
         >
           <FaCaretRight />
