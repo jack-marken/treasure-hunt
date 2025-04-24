@@ -50,8 +50,9 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, tas
       </div>
 
       <div className="fixed flex right-8 bottom-8 left-8">
+        <div className="flex w-full justify-center">
         <Link to={`/${sequence > 1 ? parseInt(sequence) - 1 : parseInt(sequence)}`}>
-        <button className="w-12 basis-1/4 relative -left-1 flex items-center justify-center h-16 rounded-l-md bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
+        <button className="w-12 flex-grow relative -left-1 flex items-center justify-center h-16 rounded-l-md bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
           <FaCaretLeft />
         </button>
         </Link>
@@ -62,7 +63,7 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, tas
       }
       {isLocked &&
         <button onClick={toggleIsLocked} className="basis-3/4 relative -left-1 flex items-center justify-center h-16 bg-gray-200 text-xl shadow-solid active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1">
-          ENTER PASSWORD
+          PASSWORD
         </button>
       }
         <Link to={`/${sequence < tasksLength ? parseInt(sequence) + 1 : parseInt(sequence)}`}>
@@ -70,6 +71,7 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, tas
           <FaCaretRight />
         </button>
         </Link>
+        </div>
       </div>
     </div>
   );
