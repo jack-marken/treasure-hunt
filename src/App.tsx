@@ -9,7 +9,6 @@ import LocationTask from "./components/LocationTask";
 import PhilipTask from "./components/PhilipTask";
 import JigsawTask from "./components/JigsawTask";
 
-
 interface Task {
   sequence: number;
   is_locked: boolean;
@@ -56,6 +55,7 @@ export default function App() {
           sequence="1"
           mainText="HEYY"
           hintText="Here is a hint"
+          answer=""
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           toggleLocked={() => toggleLocked(1)}
@@ -66,6 +66,7 @@ export default function App() {
           sequence="2"
           mainText="Origami Anagram"
           bodyText="Follow these instructions, and letters will reveal themselves. All letters will make up a single word for the next password."
+          answer=""
           link="https://youtu.be/e3NxzdEeAlA"
           hintText="Here is a hint"
           tasksLength={tasks.length}
@@ -79,6 +80,7 @@ export default function App() {
           mainText="Here is the third task"
           link=""
           hintText="Here is a hint"
+          answer=""
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           toggleLocked={() => toggleLocked(3)}
@@ -90,6 +92,7 @@ export default function App() {
           mainText="Here is the fourth task"
           link=""
           hintText="Here is a hint"
+          answer=""
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           toggleLocked={() => toggleLocked(4)}
@@ -101,6 +104,7 @@ export default function App() {
           mainText="Here is the fifth task"
           link=""
           hintText="Here is a hint"
+          answer=""
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           toggleLocked={() => toggleLocked(5)}

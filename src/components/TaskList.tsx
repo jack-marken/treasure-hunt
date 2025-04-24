@@ -10,7 +10,7 @@ export default function TaskList({lockedArr}) {
     tasks.push(
         <Link to={'/'+i} key={i} className={`relative flex items-center justify-center h-16 text-xl ${
           lockedArr[i]
-            ? '-left-1 bg-gray-200 shadow-solid text-black active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1'
+            ? '-left-1 -top-1 mb-2 bg-gray-200 shadow-solid text-black active:shadow-none active:bg-gray-300 active:-bottom-3 active:left-1 active:top-1'
             : 'bg-stone-300 shadow-md left-1 border-stone-100 border-dashed border-2 text-stone-600'
           }`}>
         {lockedArr[i] ? <FaLock /> : '#'+i }                                                                                                                                                                                               
