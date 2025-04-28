@@ -65,7 +65,7 @@ export default function App() {
       <Routes>
         <Route path="/tasks" element={<TaskList lockedArr={lockedArr} completedArr={completedArr} />} />
         <Route path="/jemima" element={<Jemima />} />
-        <Route path="/" element={<Navigate to="1" replace={true} />} />
+        <Route path="/" element={<Navigate to="tasks" replace={true} />} />
         <Route path="/1" element={
           <Task
           sequence="1"
