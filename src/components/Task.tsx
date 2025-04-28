@@ -61,7 +61,7 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, pas
     setAnswer('');
   }
   return (
-    <div className={`min-h-screen ${isLocked ? 'bg-gray-400' : 'bg-emerald-100'}`}>
+    <div className={`h-dvh ${isLocked ? 'bg-gray-400' : 'bg-emerald-100'}`}>
       <header className="fixed top-8 right-8 left-8 text-white text-4xl">
         <ul className="flex justify-between">
           <li><Link to="/tasks"><RiTreasureMapFill /></Link></li>

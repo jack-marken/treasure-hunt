@@ -73,7 +73,7 @@ export default function App() {
           bodyText="Follow these instructions, and letters will reveal themselves. Combine all letters at the end into one word."
           password="origami"
           correctAnswer="underneath"
-          answerText="The password for task #7 is 'underneath'"
+          answerText="The password for task #8 is 'underneath'"
           link="https://youtu.be/e3NxzdEeAlA"
           hintText="The word does not include a 'Z'"
           tasksLength={tasks.length}
@@ -137,10 +137,10 @@ export default function App() {
         <Route path="/5" element={
           <Task
           sequence="5"
-          mainText="Philip Part 2"
-          bodyText="Fulfill Phlip's desire: send him photos of five ears, each belonging to a different person."
+          mainText="Philip: Part 2"
+          bodyText="Fulfill Philip's desire: send him photos of five ears, each belonging to a different person."
           link=""
-          hintText="Here is a hint"
+          hintText="Challenging but simple. Do as he would like."
           password="ear"
           correctAnswer="ihavebeenpleased"
           answerText="Philip is nourished; well done 👑. Keep your eyes peeled, as more tasks will appear."
