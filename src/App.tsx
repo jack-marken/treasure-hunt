@@ -5,6 +5,7 @@ import supabase from "./supabase-client";
 import Task from "./components/Task";
 import TaskList from "./components/TaskList";
 import Jemima from "./components/Jemima";
+import Reset from "./components/Reset";
 
 interface Task {
   sequence: number;
@@ -65,6 +66,7 @@ export default function App() {
       <Routes>
         <Route path="/tasks" element={<TaskList lockedArr={lockedArr} completedArr={completedArr} />} />
         <Route path="/jemima" element={<Jemima />} />
+        <Route path="/reset" element={<Reset />} />
         <Route path="/" element={<Navigate to="tasks" replace={true} />} />
         <Route path="/1" element={
           <Task
