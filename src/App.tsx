@@ -9,10 +9,12 @@ import Jemima from "./components/Jemima";
 interface Task {
   sequence: number;
   is_locked: boolean;
+  is_completed: boolean;
 }
 
 export default function App() {
   const [lockedArr, setLockedArr] = useState<boolean[]>([]);
+  const [completedArr, setCompletedArr] = useState<boolean[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const getTasks = async () => {
@@ -20,11 +22,14 @@ export default function App() {
     if (data != null) {
         setTasks(data);
     }
-    const sortedObj: boolean[] = []
+    const sortedLocked: boolean[] = []
+    const sortedCompleted: boolean[] = []
     for (const record of Object.values(tasks)) {
-      sortedObj[record.sequence] = record.is_locked;
+      sortedLocked[record.sequence] = record.is_locked;
+      sortedCompleted[record.sequence] = record.is_completed;
     }
-    setLockedArr(sortedObj);
+    setLockedArr(sortedLocked);
+    setCompletedArr(sortedCompleted);
   }
 
   const toggleLocked = async (seq: number) => {
@@ -39,6 +44,18 @@ export default function App() {
     console.log(error);
   }
 
+  const toggleCompleted = async (seq: number) => {
+    var newCompletedArr: boolean[] = completedArr;
+    newCompletedArr[seq] = !completedArr[seq];
+    setCompletedArr(newCompletedArr);
+    const { error } = await supabase
+    .from('tasks')
+    .update({ is_completed: completedArr[seq] })
+    .eq('sequence', seq)
+    getTasks();
+    console.log(error);
+  }
+
   useEffect(() => {
       getTasks();
   }, [tasks]);
@@ -46,92 +63,143 @@ export default function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/tasks" element={<TaskList lockedArr={lockedArr} />} />
+        <Route path="/tasks" element={<TaskList lockedArr={lockedArr} completedArr={completedArr} />} />
         <Route path="/jemima" element={<Jemima />} />
         <Route path="/" element={<Navigate to="1" replace={true} />} />
         <Route path="/1" element={
           <Task
           sequence="1"
-          mainText="Virnanagram"
-          bodyText="Create 10 words using the letters in 'Birthday'. No 3 or 2 letter words are allowed."
-          link=""
-          img=""
-          hintText="Here is a hint"
-          password="virnanagram"
+          mainText="Origami"
+          bodyText="Follow these instructions, and letters will reveal themselves. Combine all letters at the end into one word."
+          password="origami"
+          correctAnswer="underneath"
+          answerText="The password for task #7 is 'underneath'"
+          link="https://youtu.be/e3NxzdEeAlA"
+          hintText="The word does not include a 'Z'"
           tasksLength={tasks.length}
           lockedArr={lockedArr}
+          completedArr={completedArr}
           toggleLocked={() => toggleLocked(1)}
+          toggleCompleted={() => toggleCompleted(1)}
           />}
         />
         <Route path="/2" element={
           <Task
           sequence="2"
-          mainText="Origami"
-          bodyText="Follow these instructions, and letters will reveal themselves. All letters will make up a single word for the next password."
-          password="origami"
-          link="https://youtu.be/e3NxzdEeAlA"
-          img=""
-          hintText="Here is a hint"
+          mainText="Virnanagram"
+          bodyText="Create 10 words using the letters in 'Birthday'. No 3 or 2 letter words are allowed."
+          link=""
+          hintText="It's up to Virna whether or not you can get a hint"
+          password="virna"
+          correctAnswer="done"
+          answerText="CONGRATS 🎉. More tasks will appear to you soon..."
           tasksLength={tasks.length}
           lockedArr={lockedArr}
+          completedArr={completedArr}
           toggleLocked={() => toggleLocked(2)}
+          toggleCompleted={() => toggleCompleted(2)}
           />}
         />
         <Route path="/3" element={
           <Task
           sequence="3"
           mainText="Jemima"
-          bodyText="The puzzle is below"
+          bodyText="Animal puzzle curated by the mima."
           link="https://jack-marken.github.io/treasure-hunt#/jemima"
-          img=""
-          hintText="Here is a hint"
+          hintText="Spaces are included"
           password="jemima"
+          correctAnswer="happy birthday lara"
+          answerText="WOOOOO 🔥. Let's move forward... the password for task #4 is 'philip'"
           tasksLength={tasks.length}
           lockedArr={lockedArr}
+          completedArr={completedArr}
           toggleLocked={() => toggleLocked(3)}
-          />}
-        />
-        <Route path="/jemima" element={<Jemima />} />
-        <Route path="/3" element={
-          <Task
-          sequence="3"
-          mainText="Philip"
-          bodyText="Message Philip and ask him 'What is your deepest desire?'"
-          link=""
-          img=""
-          hintText="Here is a hint"
-          password="philip"
-          tasksLength={tasks.length}
-          lockedArr={lockedArr}
-          toggleLocked={() => toggleLocked(3)}
+          toggleCompleted={() => toggleCompleted(3)}
           />}
         />
         <Route path="/4" element={
           <Task
           sequence="4"
-          mainText="Philip Part 2"
-          bodyText="Fulfill Phlip's desire: send him photos of four ears, each belonging to a different person."
+          mainText="Philip"
+          bodyText="Ask Philip, 'What is your deepest desire?'"
           link=""
-          img=""
-          hintText="Here is a hint"
-          password="ear"
+          hintText="His spine tingles even at the thought."
+          password="philip"
+          correctAnswer="ear"
+          answerText="You have identified his desire clearly. His goals are within reach - perchance we can consider providing to him? The password for task #5 is 'ear'"
           tasksLength={tasks.length}
           lockedArr={lockedArr}
+          completedArr={completedArr}
           toggleLocked={() => toggleLocked(4)}
+          toggleCompleted={() => toggleCompleted(4)}
           />}
         />
         <Route path="/5" element={
           <Task
           sequence="5"
-          mainText="Here is the fifth task"
-          bodyText=""
+          mainText="Philip Part 2"
+          bodyText="Fulfill Phlip's desire: send him photos of five ears, each belonging to a different person."
           link=""
-          img=""
           hintText="Here is a hint"
-          password=""
+          password="ear"
+          correctAnswer="ihavebeenpleased"
+          answerText="Philip is nourished; well done 👑. Keep your eyes peeled, as more tasks will appear."
           tasksLength={tasks.length}
           lockedArr={lockedArr}
+          completedArr={completedArr}
           toggleLocked={() => toggleLocked(5)}
+          toggleCompleted={() => toggleCompleted(5)}
+          />}
+        />
+        <Route path="/6" element={
+          <Task
+          sequence="6"
+          mainText="Katherine's challenge"
+          bodyText=""
+          link=""
+          hintText=""
+          password="katherine"
+          correctAnswer=""
+          answerText=""
+          tasksLength={tasks.length}
+          lockedArr={lockedArr}
+          completedArr={completedArr}
+          toggleLocked={() => toggleLocked(6)}
+          toggleCompleted={() => toggleCompleted(6)}
+          />}
+        />
+        <Route path="/7" element={
+          <Task
+          sequence="7"
+          mainText="Paige's word search"
+          bodyText="Find and enter the 4 letter word resulting from Paige's puzzle."
+          link=""
+          hintText="echolocation"
+          password="paige"
+          correctAnswer="bats"
+          answerText="Correct! 🎉🦇🐺🦇🎉"
+          tasksLength={tasks.length}
+          lockedArr={lockedArr}
+          completedArr={completedArr}
+          toggleLocked={() => toggleLocked(7)}
+          toggleCompleted={() => toggleCompleted(7)}
+          />}
+        />
+        <Route path="/8" element={
+          <Task
+          sequence="8"
+          mainText="-38.024675, 145.113501"
+          bodyText="Take a look around"
+          link="https://www.google.com.au/maps/"
+          hintText="You'll need to travel there and look for anything out of place (save this for Friday)"
+          password="underneath"
+          correctAnswer=""
+          answerText=""
+          tasksLength={tasks.length}
+          lockedArr={lockedArr}
+          completedArr={completedArr}
+          toggleLocked={() => toggleLocked(8)}
+          toggleCompleted={() => toggleCompleted(8)}
           />}
         />
       </Routes>
