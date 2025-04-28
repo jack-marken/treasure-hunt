@@ -4,11 +4,16 @@ import { RiTreasureMapFill } from "react-icons/ri";
 import { MdOutlineQuestionMark } from "react-icons/md";
 import { FaLock, FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 
+// import JemimaImg from 'src/assets/jemima.jpg'
+
+// const imgs: string[] = [ JemimaImg ]
+
 type TaskProps = {
   sequence: string;
   mainText: string;
   bodyText: string;
   link: string;
+  img: string;
   hintText: string;
   password: string;
   tasksLength: number;
@@ -16,7 +21,7 @@ type TaskProps = {
   toggleLocked: () => void;
 }
 
-export default function Task( {sequence, mainText, bodyText, link, hintText, password, tasksLength, lockedArr, toggleLocked}: TaskProps ) {
+export default function Task( {sequence, mainText, bodyText, link, img, hintText, password, tasksLength, lockedArr, toggleLocked}: TaskProps ) {
   const [isLocked, setIsLocked] = useState<boolean>(true);
   const [pwd, setPwd] = useState<string>('');
   const [pwdPromptShowing, setPwdPromptShowing] = useState<boolean>(false);
@@ -55,6 +60,7 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, pas
         }
         {!isLocked && <h1 className="text-4xl">{mainText}</h1>}
         {!isLocked && bodyText && <p className="p-3 border-t mt-4 text-xl">{bodyText}</p>}
+        {!isLocked && img && <div className="border mx-auto border-3 w-96 bg-gray-200"><img className="" src={"treasure-hunt/" + img} /></div>}
         {!isLocked && link && <a className="p-3 mt-4 bg-white rounded-md text-black" href={link}>{link}</a>}
       </div>
 
