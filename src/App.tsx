@@ -130,7 +130,7 @@ export default function App() {
           hintText="His spine tingles even at the thought."
           password="Filip"
           correctAnswer="ear"
-          answerText="You have identified his desire clearly. His goals are within reach - perchance we can consider providing to him? The password for task #5 is 'ear'."
+          answerText="You have identified his desire clearly. His goals are within reach - perchance we provide for him? The password for task #5 is 'ear'."
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           completedArr={completedArr}
