@@ -5,6 +5,7 @@ import supabase from "./supabase-client";
 import Task from "./components/Task";
 import TaskList from "./components/TaskList";
 import Jemima from "./components/Jemima";
+import Boxes from "./components/Boxes";
 import Reset from "./components/Reset";
 
 interface Task {
@@ -66,6 +67,7 @@ export default function App() {
       <Routes>
         <Route path="/tasks" element={<TaskList lockedArr={lockedArr} completedArr={completedArr} />} />
         <Route path="/jemima" element={<Jemima />} />
+        <Route path="/boxes" element={<Boxes />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/" element={<Navigate to="tasks" replace={true} />} />
         <Route path="/1" element={
@@ -190,13 +192,13 @@ export default function App() {
         <Route path="/8" element={
           <Task
           sequence="8"
-          mainText="-38.024675, 145.113501"
+          mainText="-38.02410, 145.10692"
           bodyText="Take a look around"
-          link="https://www.google.com.au/maps/"
-          hintText="You'll need to travel there and look for anything out of place (save this for Friday)"
+          link="https://www.google.com/maps"
+          hintText="You'll need to travel there and look for anything out of place (save this for Friday)."
           password="underneath"
-          correctAnswer=""
-          answerText=""
+          correctAnswer="1483"
+          answerText="DONE. Congratulations!!! 🔥🔥🔥🔥🔥 If you have done all tasks, go to the menu screen."
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           completedArr={completedArr}
