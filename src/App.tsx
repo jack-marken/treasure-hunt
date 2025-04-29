@@ -77,7 +77,7 @@ export default function App() {
           bodyText="Follow these instructions, and letters will reveal themselves. Combine all letters at the end into one word."
           password="origami"
           correctAnswer="underneath"
-          answerText="The password for task #8 is 'underneath'"
+          answerText="The password for task #8 is 'underneath'."
           link="https://youtu.be/e3NxzdEeAlA"
           hintText="The word does not include a 'Z'"
           tasksLength={tasks.length}
@@ -113,7 +113,7 @@ export default function App() {
           hintText="Spaces are included"
           password="jemima"
           correctAnswer="happy birthday lara"
-          answerText="WOOOOO 🔥. Let's move forward... the password for task #4 is 'philip'"
+          answerText="WOOOOO 🔥. Let's move forward... the password for task #4 is 'filip'."
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           completedArr={completedArr}
@@ -124,13 +124,13 @@ export default function App() {
         <Route path="/4" element={
           <Task
           sequence="4"
-          mainText="Philip"
-          bodyText="Ask Philip, 'What is your deepest desire?'"
+          mainText="Filip"
+          bodyText="Ask Filip, 'What is your deepest desire?'"
           link=""
           hintText="His spine tingles even at the thought."
-          password="philip"
+          password="Filip"
           correctAnswer="ear"
-          answerText="You have identified his desire clearly. His goals are within reach - perchance we can consider providing to him? The password for task #5 is 'ear'"
+          answerText="You have identified his desire clearly. His goals are within reach - perchance we can consider providing to him? The password for task #5 is 'ear'."
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           completedArr={completedArr}
@@ -141,13 +141,13 @@ export default function App() {
         <Route path="/5" element={
           <Task
           sequence="5"
-          mainText="Philip: Part 2"
-          bodyText="Fulfill Philip's desire: send him photos of five ears, each belonging to a different person."
+          mainText="Filip: Part 2"
+          bodyText="Fulfill Filip's desire: send him photos of five ears, each belonging to a different person."
           link=""
           hintText="Challenging but simple. Do as he would like."
           password="ear"
           correctAnswer="ihavebeenpleased"
-          answerText="Philip is nourished; well done 👑. Keep your eyes peeled, as more tasks will appear."
+          answerText="Filip is nourished; well done 👑. Keep your eyes peeled, as more tasks will appear."
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           completedArr={completedArr}
@@ -158,13 +158,13 @@ export default function App() {
         <Route path="/6" element={
           <Task
           sequence="6"
-          mainText="Katherine's challenge"
-          bodyText=""
-          link=""
+          mainText="Katherine's connections"
+          bodyText="A NYT connections game, custom made by your co-worker"
+          link="https://connections.swellgarfo.com/game/-OP0NP7eU4IRGidGaYOm"
           hintText=""
           password="katherine"
-          correctAnswer=""
-          answerText=""
+          correctAnswer="moo"
+          answerText="Baller 🔥. Two more tasks to go."
           tasksLength={tasks.length}
           lockedArr={lockedArr}
           completedArr={completedArr}

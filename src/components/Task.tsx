@@ -76,7 +76,7 @@ export default function Task( {sequence, mainText, bodyText, link, hintText, pas
         }
         {!isLocked && <h1 className="text-4xl">{mainText}</h1>}
         {!isLocked && bodyText && <p className="p-3 border-t mt-4 text-xl">{bodyText}</p>}
-        {!isLocked && link && <a className="p-3 mt-4 bg-white rounded-md text-black" href={link}>{link}</a>}
+        {!isLocked && link && <a className="p-3 mt-4 bg-white rounded-md text-black wrap-anywhere" href={link}>{link}</a>}
         {!isLocked && isCompleted && answerText && <p className="p-3 border-t mt-4 text-xl">{answerText}</p>}
       </div>
 
