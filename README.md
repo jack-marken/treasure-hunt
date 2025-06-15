@@ -1,6 +1,12 @@
 
 # Treasure Hunt SPA
 
+> [!NOTE]
+> This repository exists to display the source code of the program, as well as a demonstration of detailed commit message practices.
+> The application requires a running instance of Supabase, which has since been frozen.
+
+![Demo image of Treasure Hunt program](docs/demo-image.png)
+
 This is a single page application created as a birthday gift for my partner. The app is a treasure hunt style game in which the player unlocks challenges in a sequential order. The order of events is as follows:
 
 1. The home screen displays a list of 8 locked (🔒) tasks.
@@ -15,7 +21,3 @@ Tech stack:
 - React + TypeScript + Vite
 - Tailwind
 - Supabase (free postgresql database)
-
-> [!NOTE]
-> This repository exists to display the source code of the program, as well as a demonstration of detailed commit message practices.
-> The application requires a running instance of Supabase, which has since been frozen.
